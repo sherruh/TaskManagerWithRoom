@@ -9,4 +9,5 @@ import com.todoapp.User;
 @Database(entities = {Task.class, User.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
+    public abstract UserDao userDao();
 }

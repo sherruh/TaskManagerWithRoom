@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    long id;
+    public long id;
 
     String name;
     int age;
@@ -25,6 +25,11 @@ public class User {
     }
 
     public void setAge(int age) {
+        this.age = age;
+    }
+
+    public User(String name, int age) {
+        this.name = name;
         this.age = age;
     }
 }
