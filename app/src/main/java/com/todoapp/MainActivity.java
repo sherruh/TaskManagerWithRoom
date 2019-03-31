@@ -31,13 +31,16 @@ public class MainActivity extends AppCompatActivity
     private TaskAdapter adapter;
     private List<Task> list;
     private int position;
+    private boolean sortAsc;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        preferences = getSharedPreferences("settings", MODE_PRIVATE);
         boolean shown = preferences.getBoolean("shown", false);
+        sortAsc=preferences.getBoolean("sort",false);
         if (!shown) {
             startActivity(new Intent(this, OnBoardActivity.class));
             finish();
@@ -89,14 +92,25 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadTasks() {
-        App.getInstance().getDatabase().taskDao().getAllOrderAsc().observe(this, new Observer<List<Task>>() {
+        if(sortAsc){
+            App.getInstance().getDatabase().taskDao().getAllOrderAsc().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
                 list.clear();
                 list.addAll(tasks);
                 adapter.notifyDataSetChanged();
             }
-        });
+            });
+        }else{
+            App.getInstance().getDatabase().taskDao().getAllOrderDesc().observe(this, new Observer<List<Task>>() {
+                @Override
+                public void onChanged(@Nullable List<Task> tasks) {
+                    list.clear();
+                    list.addAll(tasks);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     private void showAlert(final int pos) {
@@ -138,7 +152,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort_asc) {
+            preferences.edit().putBoolean("sort",true);
+            sortAsc=true;
+            loadTasks();
+            return true;
+        }else if (id==R.id.action_sort_dec){
+            preferences.edit().putBoolean("sort",false);
+            sortAsc=false;
+            loadTasks();
             return true;
         }
 
