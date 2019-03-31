@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sort_dec_user"
+        android:orderInCategory="101"
+        android:title="SortDesc"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_sort_asc_user"
+        android:orderInCategory="102"
+        android:title="SortAsc"
+        app:showAsAction="never" />
+
+</menu>
