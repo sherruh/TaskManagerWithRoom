@@ -11,12 +11,12 @@
     <item
         android:id="@+id/action_sortName"
         android:icon="@drawable/ic_sort_down"
-        android:title="SortNameDesc"
+        android:title="Sort by Name"
         app:showAsAction="ifRoom" />
         <item
             android:id="@+id/action_sortAge"
             android:icon="@drawable/ic_sort_down"
-            android:title="SortAgeDesc"
+            android:title="Sort by Age"
             app:showAsAction="ifRoom" />
     </menu>
     </item>

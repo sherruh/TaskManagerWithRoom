@@ -8,4 +8,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_on_board">OnBoardActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="sortAgeAsc">SortAgeAsc</string>
+    <string name="sortAgeDesc">SortAgeDesc</string>
+    <string name="sortNameAsc">SortNameAsc</string>
+    <string name="sortNameDesc">SortNameDesc</string>
 </resources>

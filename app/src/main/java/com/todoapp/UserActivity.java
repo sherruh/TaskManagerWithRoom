@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,9 @@ public class UserActivity extends AppCompatActivity {
     SharedPreferences preferences;
     List<User> list;
     UserAdapter adapter;
+    boolean sortedByName;
+    boolean sortNameDesc;
+    boolean sortAgeDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,9 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        sortedByName=preferences.getBoolean("sortByName",true);
+        sortAgeDesc=preferences.getBoolean("sortAgeDesc",false);
+        sortNameDesc=preferences.getBoolean("sortNameDesc",true);
 
         list = new ArrayList<>();
         getUsers();
@@ -41,22 +48,50 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void getUsers() {
-        //list.add(new User("Vanya",25));
-        //list.add(new User("Petya",15));
-        //list.add(new User("John",35));
-        App.getInstance().getDatabase().userDao().getAll().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(@Nullable List<User> users) {
-                list.addAll(users);
-                adapter.notifyDataSetChanged();
+
+        if(sortedByName){
+            if (sortNameDesc){
+                App.getInstance().getDatabase().userDao().getAllOrderNameDesc().observe(this, new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(@Nullable List<User> users) {
+                        list.addAll(users);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }else{
+                App.getInstance().getDatabase().userDao().getAllOrderNameAsc().observe(this, new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(@Nullable List<User> users) {
+                        list.addAll(users);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
-        });
-        //App.getInstance().getDatabase().userDao().insertList(list);
+        }else if (sortAgeDesc){
+            App.getInstance().getDatabase().userDao().getAllOrderAgeDesc().observe(this, new Observer<List<User>>() {
+                @Override
+                public void onChanged(@Nullable List<User> users) {
+                    list.addAll(users);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }else{
+            App.getInstance().getDatabase().userDao().getAllOrderAgeAsc().observe(this, new Observer<List<User>>() {
+                @Override
+                public void onChanged(@Nullable List<User> users) {
+                    list.addAll(users);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
