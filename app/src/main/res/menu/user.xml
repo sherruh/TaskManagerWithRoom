@@ -9,15 +9,44 @@
         app:showAsAction="always">
     <menu>
     <item
-        android:id="@+id/action_sortName"
-        android:icon="@drawable/ic_sort_down"
         android:title="Sort by Name"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_sort_down"
+        app:showAsAction="ifRoom" >
+        <menu>
+            <item
+                android:title="DESC"
+                android:id="@+id/action_sortNameDesc"
+                android:icon="@drawable/ic_down"
+                app:showAsAction="ifRoom"
+                />
+            <item
+                android:title="ASC"
+                android:id="@+id/action_sortNameAsc"
+                android:icon="@drawable/ic_up"
+                app:showAsAction="ifRoom"
+                />
+        </menu>
+    </item>
         <item
             android:id="@+id/action_sortAge"
             android:icon="@drawable/ic_sort_down"
             android:title="Sort by Age"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="ifRoom" >
+            <menu>
+                <item
+                    android:title="DESC"
+                    android:id="@+id/action_sorAgeDesc"
+                    android:icon="@drawable/ic_down"
+                    app:showAsAction="ifRoom"
+                    />
+                <item
+                    android:title="ASC"
+                    android:id="@+id/action_sortAgeAsc"
+                    android:icon="@drawable/ic_up"
+                    app:showAsAction="ifRoom"
+                    />
+            </menu>
+        </item>
     </menu>
     </item>
 

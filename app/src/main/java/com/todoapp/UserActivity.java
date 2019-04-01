@@ -48,7 +48,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void getUsers() {
-
+        list.clear();
         if(sortedByName){
             if (sortNameDesc){
                 App.getInstance().getDatabase().userDao().getAllOrderNameDesc().observe(this, new Observer<List<User>>() {
@@ -99,6 +99,32 @@ public class UserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_sortNameAsc:
+                sortedByName=true;
+                sortNameDesc=false;
+                getUsers();
+                break;
+            case R.id.action_sortNameDesc:
+                sortedByName=true;
+                sortNameDesc=true;
+                getUsers();
+                break;
+            case R.id.action_sortAgeAsc:
+                sortedByName=false;
+                sortAgeDesc=false;
+                getUsers();
+                break;
+            case R.id.action_sorAgeDesc:
+                sortedByName=false;
+                sortAgeDesc=true;
+                getUsers();
+                break;
+        }
+        preferences.edit().putBoolean("sortByName",sortedByName).apply();
+        preferences.edit().putBoolean("sortAgeDesc",sortAgeDesc).apply();
+        preferences.edit().putBoolean("sortNameDesc",sortNameDesc).apply();
 
         Log.d("MyApp", String.valueOf(id));
 

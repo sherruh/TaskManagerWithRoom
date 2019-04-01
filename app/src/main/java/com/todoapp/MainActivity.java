@@ -153,12 +153,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sort_asc) {
-            preferences.edit().putBoolean("sort",true);
+            preferences.edit().putBoolean("sort",true).apply();
             sortAsc=true;
             loadTasks();
             return true;
         }else if (id==R.id.action_sort_dec){
-            preferences.edit().putBoolean("sort",false);
+            preferences.edit().putBoolean("sort",false).apply();
             sortAsc=false;
             loadTasks();
             return true;
