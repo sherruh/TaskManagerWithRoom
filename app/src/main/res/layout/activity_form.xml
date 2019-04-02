@@ -10,7 +10,8 @@
     <EditText
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_edit_text"/>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -39,11 +40,11 @@
     </RadioGroup>
 
     <Button
+        style="@style/ButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:onClick="onClick"
         android:text="save"
-        android:textColor="#fff" />
+        />
 
 </LinearLayout>
