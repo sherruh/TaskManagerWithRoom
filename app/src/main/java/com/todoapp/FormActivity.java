@@ -1,10 +1,16 @@
 package com.todoapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -75,5 +81,26 @@ public class FormActivity extends AppCompatActivity {
             App.getInstance().getDatabase().taskDao().insert(task);
         }
         finish();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void onClickButtonSetDate(View view) {
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        Log.d("MyApp",dayOfMonth +" "+ monthOfYear + 1 +" "+ year);
+                        c.set(year,monthOfYear+1,dayOfMonth);
+                        Log.d("MyApp", String.valueOf(c.getTime()));
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 }
